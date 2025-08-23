@@ -1,0 +1,39 @@
+{
+  "Version": 1,
+  "Hash": "xYA2IJUNVT/yfkvJPpaOxxlZzC6spOPsBzGeebRVZZI=",
+  "Source": "ApiRestEf",
+  "BasePath": "_content/ApiRestEf",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "ApiRestEf\\wwwroot",
+      "Source": "ApiRestEf",
+      "ContentRoot": "C:\\Users\\nat19\\OneDrive\\Área de Trabalho\\Projeto Web API\\ApiRestEf\\wwwroot\\",
+      "BasePath": "_content/ApiRestEf",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\nat19\\OneDrive\\Área de Trabalho\\Projeto Web API\\ApiRestEf\\wwwroot\\index.html",
+      "SourceId": "ApiRestEf",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\nat19\\OneDrive\\Área de Trabalho\\Projeto Web API\\ApiRestEf\\wwwroot\\",
+      "BasePath": "_content/ApiRestEf",
+      "RelativePath": "index.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\index.html"
+    }
+  ]
+}

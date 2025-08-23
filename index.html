@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Projeto Web API</title>
+  <style>
+    body {
+      cursor: url(https://ani.cursors-4u.net/nature/nat-11/nat1056.cur), auto;
+      font-family: system-ui, sans-serif;
+      margin: 24px;
+      background: #260C1A;
+      background: linear-gradient(86deg, rgba(38, 12, 26, 1) 18%, rgba(237, 191, 198, 1) 100%);
+    }
+
+    h1 {
+      margin-bottom: 12px;
+      color: white;
+    }
+
+    h2 {
+      margin-bottom: 12px;
+      color: black;
+    }
+
+    .card {
+      background: #AF8D86;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    }
+
+    label {
+      display: block;
+      margin: 8px 0 4px;
+    }
+
+    input {
+      padding: 8px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-right: 8px;
+      margin-top: 8px;
+    }
+
+    button.primary {
+      background: #260C1A;
+      color: white;
+    }
+
+    button.secondary {
+      background: #6b7280;
+      color: white;
+    }
+
+    button.danger {
+      background: #432E36;
+      color: white;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+    }
+
+    th,
+    td {
+      border: 1px solid #eee;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background: #f1f5f9;
+    }
+
+    .row-actions button {
+      margin-right: 4px;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+        align-items: flex-start;
+      }
+
+      .container {
+        margin-top: 60px;
+        width: 100%;
+        max-width: 100%;
+        border-radius: 0;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .container {
+        max-width: 600px;
+      }
+    }
+  </style>
+  <script>
+    if (localStorage.getItem("logado") !== "true") {
+      window.location.href = "login.html";
+    }
+  </script>
+
+</head>
+
+<body>
+
+  <h1>API de Livros</h1>
+
+  <div class="card">
+    <h2>Dados:</h2>
+    <p><strong>Nome:</strong> Natália de Azevedo Cardoso</p>
+    <p><strong>RU:</strong> 4059988</p>
+    <p><strong>Curso:</strong> Mobile</p>
+  </div>
+  <div style="text-align: right; margin: 20px;">
+    <button onclick="logout()"
+      style="background-color: #260C1A; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer;">
+      Sair
+    </button>
+  </div>
+
+  <div class="card">
+    <h2>Adicionar / Editar Livro</h2>
+    <form id="bookForm">
+      <label for="title">Título</label>
+      <input id="title" placeholder="Digite o título do livro" required />
+
+      <label for="author">Autor</label>
+      <input id="author" placeholder="Digite o nome do autor" required />
+
+      <label for="year">Ano</label>
+      <input id="year" placeholder="Digite o ano de publicação" required />
+
+      <input type="hidden" id="editIndex" />
+
+      <button type="submit" class="primary" id="saveBtn">Salvar</button>
+      <button type="button" class="secondary" onclick="resetForm()">Cancelar</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>Lista de Livros</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th>Autor</th>
+          <th>Ano</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="bookTableBody">
+        <!-- Os livros vão aparecer aqui -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // Simulação de base de dados local 
+    let livros = [
+      {
+        titulo: "Programação Back End II",
+        autor: "LEDUR, Cleverson Lopes",
+        ano: "2019"
+      },
+      {
+        titulo: "Programação Back End III",
+        autor: "FREITAS, Pedro H. Chagas [et al.]",
+        ano: "2021"
+      },
+      {
+        titulo: "Ajax, RICH Internet Applications",
+        autor: "DEITEL, Paul J.",
+        ano: "2008"
+      }
+    ];
+
+    function renderTable() {
+      const tbody = document.getElementById("bookTableBody");
+      tbody.innerHTML = "";
+
+      livros.forEach((livro, index) => {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+          <td>${livro.titulo}</td>
+          <td>${livro.autor}</td>
+          <td>${livro.ano}</td>
+          <td class="row-actions">
+            <button class="primary" onclick="editLivro(${index})">Editar</button>
+            <button class="danger" onclick="deleteLivro(${index})">Excluir</button>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    // Simula POST ou PUT
+    document.getElementById("bookForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const titulo = document.getElementById("title").value;
+      const autor = document.getElementById("author").value;
+      const ano = document.getElementById("year").value;
+      const editIndex = document.getElementById("editIndex").value;
+
+      if (editIndex === "") {
+        // POST (Adicionar)
+        livros.push({ titulo, autor, ano });
+      } else {
+        // PUT (Editar)
+        livros[editIndex] = { titulo, autor, ano };
+      }
+
+      resetForm();
+      renderTable();
+    });
+
+    function editLivro(index) {
+      const livro = livros[index];
+      document.getElementById("title").value = livro.titulo;
+      document.getElementById("author").value = livro.autor;
+      document.getElementById("year").value = livro.ano;
+      document.getElementById("editIndex").value = index;
+    }
+
+    function deleteLivro(index) {
+      // DELETE
+      if (confirm("Tem certeza que deseja excluir este livro?")) {
+        livros.splice(index, 1);
+        renderTable();
+      }
+    }
+
+    function resetForm() {
+      document.getElementById("bookForm").reset();
+      document.getElementById("editIndex").value = "";
+    }
+
+
+    // GET (visualização inicial)
+    renderTable();
+
+    function logout() {
+      localStorage.removeItem("logado");
+      window.location.href = "login.html";
+    }
+
+  </script>
+
+</body>
+
+</html>

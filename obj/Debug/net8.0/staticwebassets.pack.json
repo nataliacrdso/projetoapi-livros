@@ -1,0 +1,25 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\nat19\\OneDrive\\Área de Trabalho\\Projeto Web API\\ApiRestEf\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ApiRestEf.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.ApiRestEf.props",
+      "PackagePath": "build\\ApiRestEf.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.ApiRestEf.props",
+      "PackagePath": "buildMultiTargeting\\ApiRestEf.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.ApiRestEf.props",
+      "PackagePath": "buildTransitive\\ApiRestEf.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

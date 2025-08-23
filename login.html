@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Login do Aluno</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            align-items: center;
+        }
+
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: sans-serif;
+        }
+
+
+
+        body {
+            cursor: url(https://ani.cursors-4u.net/nature/nat-11/nat1056.cur), auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('imagens/henry-be-lc7xcWebECc-unsplash.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0;
+        }
+
+
+        .login-box {
+            background: #EEE0CB;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 320px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #432E36;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+            display: none;
+            font-size: 14px;
+        }
+
+        .logout {
+            align-items: center;
+
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                align-items: flex-start;
+            }
+
+            .container {
+                margin-top: 60px;
+                width: 100%;
+                max-width: 100%;
+                border-radius: 0;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 600px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="login-box">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Último nome" />
+        <input type="password" id="password" placeholder="RU" />
+        <button onclick="doLogin()">Entrar</button>
+        <div class="error" id="error">Usuário ou senha incorretos.</div>
+    </div>
+
+    <script>
+        const userCorreto = "Cardoso";
+        const senhaCorreta = "4059988";
+
+        function doLogin() {
+            const user = document.getElementById("username").value.trim();
+            const pass = document.getElementById("password").value.trim();
+
+            if (user === userCorreto && pass === senhaCorreta) {
+                // Login válido, salvar estado e redirecionar
+                localStorage.setItem("logado", "true");
+                window.location.href = "index.html";
+            } else {
+                document.getElementById("error").style.display = "block";
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem("logado");
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+
+</html>
